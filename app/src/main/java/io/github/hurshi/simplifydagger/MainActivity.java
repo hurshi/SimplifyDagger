@@ -15,7 +15,6 @@ import io.github.hurshi.simplifydagger.beans.Person;
 import io.github.hurshi.simplifydagger.modules.MainModule;
 import io.github.hurshi.simplifydagger.scopes.ActivityScope;
 
-
 @AutoComponent(module = MainModule.class, scope = ActivityScope.class)
 public class MainActivity extends AppCompatActivity {
     @Inject
@@ -25,9 +24,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DaggerAutoMainActivityComponent.create().inject(this);
-        Log.e(">>>", "person = " + new Gson().toJson(person));
+        DaggerAutoMainActivityComponent//在类上 @AutoComponent 就会自动生成该类
+                .create()
+                .inject(this);
 
+        clickToSecActivity();
+
+        Log.e(">>>", "person = " + new Gson().toJson(person));
+    }
+
+    private void clickToSecActivity() {
         findViewById(R.id.toSec).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
