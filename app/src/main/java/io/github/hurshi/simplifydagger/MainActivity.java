@@ -13,10 +13,10 @@ import javax.inject.Inject;
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
 import io.github.hurshi.simplifydagger.beans.Person;
 import io.github.hurshi.simplifydagger.modules.MainModule;
-import io.github.hurshi.simplifydagger.scopes.AppScope;
+import io.github.hurshi.simplifydagger.scopes.ActivityScope;
 
 
-@AutoComponent(module = MainModule.class, scope = AppScope.class)
+@AutoComponent(module = MainModule.class, scope = ActivityScope.class)
 public class MainActivity extends AppCompatActivity {
     @Inject
     Person person;
