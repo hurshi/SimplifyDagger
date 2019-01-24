@@ -6,11 +6,11 @@ import io.github.hurshi.simplifydagger.beans.Person;
 import io.github.hurshi.simplifydagger.scopes.ActivityScope;
 
 @Module
-public class MainModule {
+public class PersonModule {
 
     @ActivityScope
     @Provides
     Person providePerson() {
-        return new Person("hurshi", 18);
+        return new Person("person hurshi", 18);
     }
 }

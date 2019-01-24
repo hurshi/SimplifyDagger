@@ -27,11 +27,13 @@ public final class AutoComponentProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
         filer = processingEnvironment.getFiler();
+        Logger.init(processingEnvironment.getMessager());
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment env) {
         Logger.log("process @AutoComponent");
+
         List<AutoComponentWrapper> autoComponentWrappers = getAutoComponentWrappers(env);
         for (AutoComponentWrapper wrapper : autoComponentWrappers) {
             JavaCodeGenerator.autoComponentGenerator(filer, wrapper);
@@ -48,18 +50,21 @@ public final class AutoComponentProcessor extends AbstractProcessor {
                     String key = entry.getKey().getSimpleName().toString();
                     Object value = entry.getValue().getValue();
                     switch (key) {
-                        case "module": {
-                            wrapper.setModuleValue(value);
+                        case "modules": {
+                            wrapper.setModulesValue(value);
                             break;
                         }
                         case "scope": {
                             wrapper.setScopeValue(value);
                             break;
                         }
+                        case "dependencies": {
+                            wrapper.setDependenciesValue(value);
+                            break;
+                        }
                     }
                 }
-                if (null != wrapper.getModuleValue()
-                        && null != wrapper.getScopeValue()
+                if (null != wrapper.getScopeValue()
                         && element instanceof TypeElement) {
                     wrapper.setTypeElement((TypeElement) element);
                     autoComponentWrappers.add(wrapper);

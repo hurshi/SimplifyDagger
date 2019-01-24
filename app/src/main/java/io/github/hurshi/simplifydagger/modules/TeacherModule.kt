@@ -6,7 +6,7 @@ import io.github.hurshi.simplifydagger.beans.Teacher
 import io.github.hurshi.simplifydagger.scopes.ActivityScope
 
 @Module
-class SecModule {
+class TeacherModule {
 
     @ActivityScope
     @Provides

@@ -4,7 +4,8 @@ import javax.lang.model.element.TypeElement;
 
 public class AutoComponentWrapper {
     private TypeElement typeElement;
-    private Object moduleValue;
+    private Object modulesValue;
+    private Object dependenciesValue;
     private Object scopeValue;
 
     public TypeElement getTypeElement() {
@@ -15,12 +16,20 @@ public class AutoComponentWrapper {
         this.typeElement = typeElement;
     }
 
-    public Object getModuleValue() {
-        return moduleValue;
+    public Object getModulesValue() {
+        return modulesValue;
     }
 
-    public void setModuleValue(Object moduleValue) {
-        this.moduleValue = moduleValue;
+    public void setModulesValue(Object modulesValue) {
+        this.modulesValue = modulesValue;
+    }
+
+    public Object getDependenciesValue() {
+        return dependenciesValue;
+    }
+
+    public void setDependenciesValue(Object dependenciesValue) {
+        this.dependenciesValue = dependenciesValue;
     }
 
     public Object getScopeValue() {

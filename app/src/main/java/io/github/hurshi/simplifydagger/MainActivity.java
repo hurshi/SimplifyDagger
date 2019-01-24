@@ -12,13 +12,18 @@ import javax.inject.Inject;
 
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
 import io.github.hurshi.simplifydagger.beans.Person;
-import io.github.hurshi.simplifydagger.modules.MainModule;
+import io.github.hurshi.simplifydagger.beans.Teacher;
+import io.github.hurshi.simplifydagger.modules.PersonModule;
+import io.github.hurshi.simplifydagger.modules.TeacherModule;
 import io.github.hurshi.simplifydagger.scopes.ActivityScope;
 
-@AutoComponent(module = MainModule.class, scope = ActivityScope.class)
+@AutoComponent(modules = {PersonModule.class, TeacherModule.class}, scope = ActivityScope.class)
 public class MainActivity extends AppCompatActivity {
     @Inject
     Person person;
+
+    @Inject
+    Teacher teacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,14 @@ public class MainActivity extends AppCompatActivity {
         clickToSecActivity();
 
         Log.e(">>>", "person = " + new Gson().toJson(person));
+        Log.e(">>>", "teacher = " + new Gson().toJson(teacher));
     }
 
     private void clickToSecActivity() {
         findViewById(R.id.toSec).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SecActivity.class));
+                startActivity(new Intent(MainActivity.this, KotlinActivity.class));
             }
         });
     }

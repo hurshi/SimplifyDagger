@@ -7,8 +7,8 @@ import javax.annotation.processing.Filer;
 import javax.tools.JavaFileObject;
 
 
-public class JavaCodeGenerator {
-    public static void autoComponentGenerator(Filer filer, AutoComponentWrapper wrapper) {
+class JavaCodeGenerator {
+    static void autoComponentGenerator(Filer filer, AutoComponentWrapper wrapper) {
         String className = wrapper.getTypeElement().getSimpleName().toString();
         String packageName = wrapper.getTypeElement().getQualifiedName().toString().replace("." + className, "");
         String realClassName = "Auto" + className + "Component";
@@ -16,10 +16,22 @@ public class JavaCodeGenerator {
         StringBuilder builder = new StringBuilder();
         builder.append("package ").append(packageName).append(";\n")
                 .append("\n")
-
                 .append("@").append(wrapper.getScopeValue().toString()).append("\n")
-                .append("@").append("dagger.Component(modules = { ").append(wrapper.getModuleValue().toString()).append(".class })\n")
+                .append("@").append("dagger.Component(");
+        boolean modulesIsNotEmpty = false;
+        if (null != wrapper.getModulesValue() && wrapper.getModulesValue().toString().length() > 0) {
+            modulesIsNotEmpty = true;
+            builder.append(" modules = { ").append(wrapper.getModulesValue().toString()).append(" }");
+        }
 
+        if (null != wrapper.getDependenciesValue() && wrapper.getDependenciesValue().toString().length() > 0) {
+            if (modulesIsNotEmpty) builder.append(",");
+            builder.append(" dependencies = { ").append(wrapper.getDependenciesValue().toString()).append(" }");
+        }
+
+        builder.append(")\n");
+
+        builder
                 .append("public interface ").append(realClassName).append(" {\n")
                 .append("   void inject(").append(wrapper.getTypeElement().getQualifiedName().toString()).append(" target);\n")
                 .append("}\n");
