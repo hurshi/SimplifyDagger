@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface AutoComponent {
-//    Class<?> module();
-//
-//    Class<?> scope();
+    Class<?> module();
+
+    Class<?> scope();
 }
