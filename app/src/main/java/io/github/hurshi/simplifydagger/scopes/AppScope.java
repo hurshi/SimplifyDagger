@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger;
+package io.github.hurshi.simplifydagger.scopes;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

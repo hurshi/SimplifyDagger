@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger;
+package io.github.hurshi.simplifydagger.beans;
 
 public class Person {
     private String name;

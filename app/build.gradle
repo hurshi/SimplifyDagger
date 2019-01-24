@@ -40,4 +40,8 @@ dependencies {
 
     implementation project(':annotation')
     kapt project(':processor')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
