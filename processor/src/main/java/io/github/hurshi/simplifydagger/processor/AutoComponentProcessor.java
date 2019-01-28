@@ -64,8 +64,7 @@ public final class AutoComponentProcessor extends AbstractProcessor {
                         }
                     }
                 }
-                if (null != wrapper.getScopeValue()
-                        && element instanceof TypeElement) {
+                if (element instanceof TypeElement) {
                     wrapper.setTypeElement((TypeElement) element);
                     autoComponentWrappers.add(wrapper);
                 }
