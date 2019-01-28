@@ -13,16 +13,34 @@ class JavaCodeGenerator {
         String packageName = wrapper.getTypeElement().getQualifiedName().toString().replace("." + className, "");
         String realClassName = "Auto" + className + "Component";
 
+        StringBuilder builder = new StringBuilder()
+                .append(appendPackage(packageName))
+                .append(appendScope(wrapper))
+                .append(appendComponent(wrapper))
+                .append(appendBody(wrapper, realClassName));
+
+        writeJavaFile(filer, packageName + "." + realClassName, builder);
+    }
+
+
+    private static StringBuilder appendPackage(String packageName) {
         StringBuilder builder = new StringBuilder();
         builder.append("package ").append(packageName).append(";\n")
                 .append("\n");
+        return builder;
+    }
 
+    private static StringBuilder appendScope(AutoComponentWrapper wrapper) {
+        StringBuilder builder = new StringBuilder();
         //add scope if exist
         if (null != wrapper.getScopeValue() && wrapper.getScopeValue().toString().length() > 0) {
             builder.append("@").append(wrapper.getScopeValue().toString()).append("\n");
         }
+        return builder;
+    }
 
-        builder.append("@").append("dagger.Component(");
+    private static StringBuilder appendComponent(AutoComponentWrapper wrapper) {
+        StringBuilder builder = new StringBuilder("@dagger.Component(");
 
         //add modules if exist
         boolean modulesIsNotEmpty = false;
@@ -38,15 +56,23 @@ class JavaCodeGenerator {
         }
 
         builder.append(")\n");
+        return builder;
+    }
 
-        builder.append("public interface ").append(realClassName).append(" {\n")
+
+    private static StringBuilder appendBody(AutoComponentWrapper wrapper, String className) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("public interface ").append(className).append(" {\n")
                 .append("   void inject(").append(wrapper.getTypeElement().getQualifiedName().toString()).append(" target);\n")
                 .append("}\n");
+        return builder;
+    }
 
+    private static void writeJavaFile(Filer filer, String fileName, StringBuilder content) {
         try {
-            JavaFileObject file = filer.createSourceFile(packageName + "." + realClassName);
+            JavaFileObject file = filer.createSourceFile(fileName);
             try (Writer writer = file.openWriter()) {
-                writer.write(builder.toString());
+                writer.write(content.toString());
                 writer.flush();
             }
         } catch (IOException e) {

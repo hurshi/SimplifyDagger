@@ -14,8 +14,11 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.MirroredTypeException;
 
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
 
@@ -44,29 +47,33 @@ public final class AutoComponentProcessor extends AbstractProcessor {
     private List<AutoComponentWrapper> getAutoComponentWrappers(RoundEnvironment env) {
         List<AutoComponentWrapper> autoComponentWrappers = new LinkedList<>();
         for (Element element : env.getElementsAnnotatedWith(AutoComponent.class)) {
-            for (AnnotationMirror mirror : element.getAnnotationMirrors()) {
-                AutoComponentWrapper wrapper = new AutoComponentWrapper();
-                for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirror.getElementValues().entrySet()) {
-                    String key = entry.getKey().getSimpleName().toString();
-                    Object value = entry.getValue().getValue();
-                    switch (key) {
-                        case "modules": {
-                            wrapper.setModulesValue(value);
-                            break;
+            if (element.getKind() == ElementKind.CLASS) {
+                for (AnnotationMirror mirror : element.getAnnotationMirrors()) {
+                    if (AutoComponent.class.getName().equals(mirror.getAnnotationType().toString())) {
+                        AutoComponentWrapper wrapper = new AutoComponentWrapper();
+                        for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirror.getElementValues().entrySet()) {
+                            String key = entry.getKey().getSimpleName().toString();
+                            Object value = entry.getValue().getValue();
+                            switch (key) {
+                                case "modules": {
+                                    wrapper.setModulesValue(value);
+                                    break;
+                                }
+                                case "scope": {
+                                    wrapper.setScopeValue(value);
+                                    break;
+                                }
+                                case "dependencies": {
+                                    wrapper.setDependenciesValue(value);
+                                    break;
+                                }
+                            }
                         }
-                        case "scope": {
-                            wrapper.setScopeValue(value);
-                            break;
-                        }
-                        case "dependencies": {
-                            wrapper.setDependenciesValue(value);
-                            break;
+                        if (element instanceof TypeElement) {
+                            wrapper.setTypeElement((TypeElement) element);
+                            autoComponentWrappers.add(wrapper);
                         }
                     }
-                }
-                if (element instanceof TypeElement) {
-                    wrapper.setTypeElement((TypeElement) element);
-                    autoComponentWrappers.add(wrapper);
                 }
             }
         }

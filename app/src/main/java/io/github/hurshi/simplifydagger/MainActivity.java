@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         DaggerAutoMainActivityComponent//在类上 @AutoComponent 就会自动生成该类
                 .create()
                 .inject(this);
-
         clickToSecActivity();
 
         Log.e(">>>", "person = " + new Gson().toJson(person));
