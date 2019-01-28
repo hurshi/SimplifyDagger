@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface AutoComponent {
     Class<?>[] modules() default {};
 
-    Class<?> scope();
+    Class<?> scope() default void.class;
 
     Class<?>[] dependencies() default {};
 }
