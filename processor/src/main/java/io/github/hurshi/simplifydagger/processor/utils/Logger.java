@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor;
+package io.github.hurshi.simplifydagger.processor.utils;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
@@ -6,7 +6,7 @@ import javax.tools.Diagnostic;
 public class Logger {
     private static Messager messager;
 
-    static void init(Messager m) {
+    public static void init(Messager m) {
         messager = m;
     }
 

@@ -1,1 +1,1 @@
-include ':app', ':annotation', ':processor'
+include ':sample', ':annotation', ':processor', ':sample_daggerandroid'

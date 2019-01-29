@@ -1,11 +1,10 @@
-package io.github.hurshi.simplifydagger.processor;
+package io.github.hurshi.simplifydagger.processor.auto_android_component.auto_component;
 
 import javax.lang.model.element.TypeElement;
 
-public class AutoComponentWrapper {
+public class AutoAndroidComponentWrapper {
     private TypeElement typeElement;
     private Object modulesValue;
-    private Object dependenciesValue;
     private Object scopeValue;
 
     public TypeElement getTypeElement() {
@@ -22,14 +21,6 @@ public class AutoComponentWrapper {
 
     public void setModulesValue(Object modulesValue) {
         this.modulesValue = modulesValue;
-    }
-
-    public Object getDependenciesValue() {
-        return dependenciesValue;
-    }
-
-    public void setDependenciesValue(Object dependenciesValue) {
-        this.dependenciesValue = dependenciesValue;
     }
 
     public Object getScopeValue() {

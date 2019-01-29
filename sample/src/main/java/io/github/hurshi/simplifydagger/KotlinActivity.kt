@@ -18,5 +18,7 @@ class KotlinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         DaggerAutoKotlinActivityComponent.create().inject(this)
         Log.e(">>>", "teacher = ${Gson().toJson(teacher)}")
+
+        AutoComponent::class.java.canonicalName
     }
 }
