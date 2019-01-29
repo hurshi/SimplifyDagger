@@ -1,7 +1,7 @@
 package io.github.hurshi.sample_daggerandroid.beans
 
-data class AppBean(val desc: String) {
+data class FragmentBean(val desc: String) {
     override fun toString(): String {
-        return "AppBean ${hashCode()} $desc"
+        return "FragmentBean ${hashCode()} $desc"
     }
 }

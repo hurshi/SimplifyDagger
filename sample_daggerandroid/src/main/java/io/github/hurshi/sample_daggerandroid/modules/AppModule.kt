@@ -8,7 +8,7 @@ import io.github.hurshi.sample_daggerandroid.beans.AppBean
 import io.github.hurshi.sample_daggerandroid.scopes.AppScope
 
 @Module
-class ApplicationModule(private val appContext: Context) {
+class AppModule(private val appContext: Context) {
 
     @AppScope
     @Provides
@@ -19,7 +19,7 @@ class ApplicationModule(private val appContext: Context) {
     @AppScope
     @Provides
     internal fun provideAppBean(): AppBean {
-        return AppBean("hurshi's phone", 188_8888_8888)
+        return AppBean("hello,AppModule")
     }
 
 }
