@@ -2,6 +2,7 @@ package io.github.hurshi.sample_daggerandroid;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import javax.inject.Inject;
@@ -25,7 +26,17 @@ public class MainActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         Log.e(">>>", "MainActivity  " + appBean.toString());
         Log.e(">>>", "MainActivity  " + activityBean.toString());
+
+        loadFragment();
+    }
+
+    private void loadFragment() {
+        TestFragment fragment = new TestFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.frame_layout, fragment);
+        transaction.commit();
     }
 }
