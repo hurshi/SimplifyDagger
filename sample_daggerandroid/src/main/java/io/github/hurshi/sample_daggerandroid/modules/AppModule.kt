@@ -12,7 +12,7 @@ class AppModule(private val appContext: Context) {
 
     @AppScope
     @Provides
-    internal fun providePerson(): SharedPreferences {
+    internal fun provide(): SharedPreferences {
         return appContext.getSharedPreferences("simplify_dagger_shared_preferences", Context.MODE_PRIVATE)
     }
 

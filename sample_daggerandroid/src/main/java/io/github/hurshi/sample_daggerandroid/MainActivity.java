@@ -27,8 +27,8 @@ public class MainActivity extends DaggerAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e(">>>", "MainActivity  " + appBean.toString());
-        Log.e(">>>", "MainActivity  " + activityBean.toString());
+        Log.e(">>>", "log from MainActivity  " + appBean.toString());
+        Log.e(">>>", "log from MainActivity  " + activityBean.toString());
 
         loadFragment();
     }
