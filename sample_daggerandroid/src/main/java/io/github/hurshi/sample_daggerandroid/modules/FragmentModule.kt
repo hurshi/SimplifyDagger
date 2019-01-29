@@ -2,14 +2,14 @@ package io.github.hurshi.sample_daggerandroid.modules
 
 import dagger.Module
 import dagger.Provides
-import io.github.hurshi.sample_daggerandroid.beans.ActivityBean
 import io.github.hurshi.sample_daggerandroid.beans.FragmentBean
-import io.github.hurshi.simplifydagger.scopes.ActivityScope
+import io.github.hurshi.sample_daggerandroid.scopes.ActivityScope
+import io.github.hurshi.sample_daggerandroid.scopes.FragmentScope
 
 @Module
 class FragmentModule {
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provide(): FragmentBean {
         return FragmentBean("hello FragmentModule")

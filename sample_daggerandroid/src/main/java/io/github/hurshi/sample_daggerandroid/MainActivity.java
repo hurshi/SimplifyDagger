@@ -11,11 +11,12 @@ import dagger.android.support.DaggerAppCompatActivity;
 import io.github.hurshi.sample_daggerandroid.beans.ActivityBean;
 import io.github.hurshi.sample_daggerandroid.beans.AppBean;
 import io.github.hurshi.sample_daggerandroid.modules.ActivityModule;
+import io.github.hurshi.sample_daggerandroid.scopes.ActivityScope;
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
-import io.github.hurshi.simplifydagger.scopes.ActivityScope;
 
 
-@AutoAndroidComponent(scope = ActivityScope.class, modules = {ActivityModule.class})
+@AutoAndroidComponent(scope = ActivityScope.class, modules = {ActivityModule.class,
+        io.github.hurshi.simplifydagger.AutoAndroidFragmentScopeComponentInjector.class})
 public class MainActivity extends DaggerAppCompatActivity {
     @Inject
     ActivityBean activityBean;

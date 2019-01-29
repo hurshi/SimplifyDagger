@@ -9,5 +9,5 @@ import io.github.hurshi.sample_daggerandroid.scopes.AppScope
 
 @AppScope
 @Component(modules = [AppModule::class, AndroidSupportInjectionModule::class,
-    io.github.hurshi.simplifydagger.AutoAndroidComponentInjector::class])
+    io.github.hurshi.simplifydagger.AutoAndroidActivityScopeComponentInjector::class])
 interface AppComponent : AndroidInjector<App>

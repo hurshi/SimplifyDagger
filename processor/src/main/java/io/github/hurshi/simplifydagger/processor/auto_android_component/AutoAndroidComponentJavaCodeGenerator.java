@@ -1,20 +1,45 @@
-package io.github.hurshi.simplifydagger.processor.auto_android_component.auto_component;
+package io.github.hurshi.simplifydagger.processor.auto_android_component;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.annotation.processing.Filer;
 
 import io.github.hurshi.simplifydagger.processor.utils.Constant;
+import io.github.hurshi.simplifydagger.processor.utils.Logger;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 
 class AutoAndroidComponentJavaCodeGenerator {
     static void autoComponentGenerator(Filer filer, List<AutoAndroidComponentWrapper> wrappers) {
-        if (wrappers.size() <= 0) {
+        Map<String, List<AutoAndroidComponentWrapper>> map = new LinkedHashMap<>();
+        for (AutoAndroidComponentWrapper w : wrappers) {
+            String scope = "";
+            if (null != w.getScopeValue() && w.getScopeValue().toString().length() > 0
+                    && w.getScopeValue() != void.class) {
+                String[] scopeSplit = w.getScopeValue().toString().split("[.]");
+                scope = scopeSplit[scopeSplit.length - 1];
+                Logger.log("scope = " + scope + " allScope = " + w.getScopeValue().toString());
+            }
+            List<AutoAndroidComponentWrapper> l = map.get(scope);
+            if (null == l) {
+                l = new LinkedList<>();
+            }
+            l.add(w);
+            map.put(scope, l);
+        }
+        map.forEach((scope, wps) -> generateSingleScope(filer, scope, wps));
+    }
+
+    private static void generateSingleScope(Filer filer, String scope, List<AutoAndroidComponentWrapper> wrappers) {
+        if (null == wrappers || wrappers.size() <= 0) {
             return;
         }
-        String className = "AutoAndroidComponentInjector";
+        String className = "AutoAndroid" + scope + "ComponentInjector";
         String packageName = "io.github.hurshi.simplifydagger";
         StringBuilder builder = new StringBuilder()
                 .append(appendPackage(packageName))

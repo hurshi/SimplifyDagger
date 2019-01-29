@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.scopes
+package io.github.hurshi.sample_daggerandroid.scopes
 
 import javax.inject.Scope
 

@@ -12,7 +12,7 @@ import javax.lang.model.element.TypeElement;
 
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
-import io.github.hurshi.simplifydagger.processor.auto_android_component.auto_component.AutoAndroidComponentProcessor;
+import io.github.hurshi.simplifydagger.processor.auto_android_component.AutoAndroidComponentProcessor;
 import io.github.hurshi.simplifydagger.processor.auto_component.AutoComponentProcessor;
 import io.github.hurshi.simplifydagger.processor.utils.Logger;
 
