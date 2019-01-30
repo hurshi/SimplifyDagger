@@ -32,8 +32,8 @@ public final class AutoAndroidComponentProcessor {
                         wrapper.setScopeValue(value);
                         break;
                     }
-                    case "subScope": {
-                        wrapper.setSubScopeValue(value);
+                    case "fragments": {
+                        wrapper.setFragmentsValue(value);
                         break;
                     }
                 }

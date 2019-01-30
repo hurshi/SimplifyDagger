@@ -15,7 +15,7 @@
   @AutoComponent(module = {MainModule.class}, scope = ActivityScope.class)//👈关注这行
   public class MainActivity extends AppCompatActivity {
       @Inject
-      Person activityBean;
+      Person mainActivityBean;
   
       @Override
       protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,13 @@
   @AutoAndroidComponent(scope = ActivityScope.class, modules = {MainModule.class})
   public class MainActivity extends AppCompatActivity {
       @Inject
-      Person activityBean;
+      Person mainActivityBean;
   
       @Override
       protected void onCreate(@Nullable Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           AndroidInjection.inject(this);
-          Log.e(">>>", "activityBean = " + new Gson().toJson(activityBean));
+          Log.e(">>>", "mainActivityBean = " + new Gson().toJson(mainActivityBean));
       }
   }
   ```

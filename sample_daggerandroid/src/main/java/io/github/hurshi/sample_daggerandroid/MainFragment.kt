@@ -6,35 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
-import io.github.hurshi.sample_daggerandroid.beans.ActivityBean
+import io.github.hurshi.sample_daggerandroid.beans.MainActivityBean
 import io.github.hurshi.sample_daggerandroid.beans.AppBean
-import io.github.hurshi.sample_daggerandroid.beans.FragmentBean
-import io.github.hurshi.sample_daggerandroid.modules.FragmentModule
+import io.github.hurshi.sample_daggerandroid.beans.MainFragmentBean
+import io.github.hurshi.sample_daggerandroid.modules.MainFragmentModule
 import io.github.hurshi.sample_daggerandroid.scopes.FragmentScope
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent
 import javax.inject.Inject
 
 
-@AutoAndroidComponent(scope = FragmentScope::class, modules = [FragmentModule::class])
-class TestFragment : DaggerFragment() {
+@AutoAndroidComponent(scope = FragmentScope::class, modules = [MainFragmentModule::class])
+class MainFragment : DaggerFragment() {
 
     @Inject
-    lateinit var fragmentBean: FragmentBean
+    lateinit var mainFragmentBean: MainFragmentBean
 
     @Inject
-    lateinit var activityBean: ActivityBean
+    lateinit var mainActivityBean: MainActivityBean
 
     @Inject
     lateinit var appBean: AppBean
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_test, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e(">>>", "log from TestFragment  $appBean")
-        Log.e(">>>", "log from TestFragment  $activityBean")
-        Log.e(">>>", "log from TestFragment  $fragmentBean")
+        Log.e(">>>", "log from MainFragment  $appBean")
+        Log.e(">>>", "log from MainFragment  $mainActivityBean")
+        Log.e(">>>", "log from MainFragment  $mainFragmentBean")
     }
 }

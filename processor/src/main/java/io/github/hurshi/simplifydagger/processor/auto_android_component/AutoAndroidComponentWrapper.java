@@ -6,7 +6,7 @@ public class AutoAndroidComponentWrapper {
     private TypeElement typeElement;
     private Object modulesValue;
     private Object scopeValue;
-    private Object subScopeValue;
+    private Object fragmentsValue;
 
     public TypeElement getTypeElement() {
         return typeElement;
@@ -32,11 +32,12 @@ public class AutoAndroidComponentWrapper {
         this.scopeValue = scopeValue;
     }
 
-    public Object getSubScopeValue() {
-        return subScopeValue;
+    public Object getFragmentsValue() {
+        return fragmentsValue;
     }
 
-    public void setSubScopeValue(Object subScopeValue) {
-        this.subScopeValue = subScopeValue;
+    public void setFragmentsValue(Object fragmentsValue) {
+        this.fragmentsValue = fragmentsValue;
     }
 }
+

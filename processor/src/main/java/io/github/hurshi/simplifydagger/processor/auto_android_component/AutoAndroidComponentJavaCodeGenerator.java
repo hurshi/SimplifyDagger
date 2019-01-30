@@ -1,5 +1,6 @@
 package io.github.hurshi.simplifydagger.processor.auto_android_component;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,30 +9,39 @@ import java.util.Map;
 import javax.annotation.processing.Filer;
 
 import io.github.hurshi.simplifydagger.processor.utils.Constant;
-import io.github.hurshi.simplifydagger.processor.utils.Logger;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 
 class AutoAndroidComponentJavaCodeGenerator {
     private static final String NAME_PREF = "AutoAndroid";
     private static final String NAME_SUFFER = "ComponentInjector";
+    private static final String PACKAGE_NAME = "io.github.hurshi.simplifydagger";
 
     static void autoComponentGenerator(Filer filer, List<AutoAndroidComponentWrapper> wrappers) {
+        List<String> fragments = new LinkedList<>();
+        wrappers.forEach(wrapper -> {
+            if (null != wrapper.getFragmentsValue() && wrapper.getFragmentsValue().toString().length() > 0) {
+                fragments.addAll(Arrays.asList(wrapper.getFragmentsValue().toString().split("[,]")));
+            }
+        });
+
         Map<String, List<AutoAndroidComponentWrapper>> map = new LinkedHashMap<>();
         for (AutoAndroidComponentWrapper w : wrappers) {
-            String scope = "";
+            String middleName = "";
             if (null != w.getScopeValue() && w.getScopeValue().toString().length() > 0
                     && w.getScopeValue() != void.class) {
                 String[] scopeSplit = w.getScopeValue().toString().split("[.]");
-                scope = scopeSplit[scopeSplit.length - 1];
-                Logger.log("scope = " + scope + " allScope = " + w.getScopeValue().toString());
+                middleName = scopeSplit[scopeSplit.length - 1];
             }
-            List<AutoAndroidComponentWrapper> l = map.get(scope);
+            if (fragments.contains(w.getTypeElement().getQualifiedName().toString() + ".class")) {
+                middleName = w.getTypeElement().getSimpleName().toString();
+            }
+            List<AutoAndroidComponentWrapper> l = map.get(middleName);
             if (null == l) {
                 l = new LinkedList<>();
             }
             l.add(w);
-            map.put(scope, l);
+            map.put(middleName, l);
         }
         map.forEach((scope, wps) -> generateSingleScope(filer, scope, wps));
     }
@@ -41,15 +51,14 @@ class AutoAndroidComponentJavaCodeGenerator {
             return;
         }
         String className = NAME_PREF + scope + NAME_SUFFER;
-        String packageName = "io.github.hurshi.simplifydagger";
         StringBuilder builder = new StringBuilder()
-                .append(appendPackage(packageName))
+                .append(appendPackage(PACKAGE_NAME))
                 .append("@dagger.Module\n")
                 .append("public abstract class ").append(className).append(" {\n\n")
                 .append(appendBody(wrappers))
                 .append("}");
 
-        Utils.writeJavaFile(filer, packageName + "." + className, builder);
+        Utils.writeJavaFile(filer, PACKAGE_NAME + "." + className, builder);
     }
 
 
@@ -91,23 +100,31 @@ class AutoAndroidComponentJavaCodeGenerator {
 
         //add modules if exist
         boolean haveModule = null != wrapper.getModulesValue() && wrapper.getModulesValue().toString().length() > 0;
-        boolean haveSubScope = null != wrapper.getSubScopeValue() && wrapper.getSubScopeValue().toString().length() > 0 && wrapper.getScopeValue() != void.class;
-        String realScopeMiddleName = "";
-        if (haveSubScope) {
-            String[] temp = wrapper.getSubScopeValue().toString().split("[.]");
-            if (temp.length >= 1) {
-                realScopeMiddleName = temp[temp.length - 1];
+        boolean haveFragments = null != wrapper.getFragmentsValue() && wrapper.getFragmentsValue().toString().length() > 0 && wrapper.getScopeValue() != void.class;
+        List<String> realFragmentMiddleNames = new LinkedList<>();
+        if (haveFragments) {
+            String[] fgFullNames = wrapper.getFragmentsValue().toString().split("[,]");
+            for (int i = 0; i < fgFullNames.length; i++) {
+                String[] fgPath = fgFullNames[i].split("[.]");
+                if (fgPath.length >= 2) {
+                    realFragmentMiddleNames.add(fgPath[fgPath.length - 2]);
+                }
             }
         }
-        haveSubScope = realScopeMiddleName.length() > 0;
 
-        if (haveModule || haveSubScope) {
+        haveFragments = realFragmentMiddleNames.size() > 0;
+
+        if (haveModule || haveFragments) {
             builder.append("modules = {");
             if (haveModule) builder.append(wrapper.getModulesValue().toString());
-            if (haveModule && haveSubScope) builder.append(", ");
-            if (haveSubScope)
-                builder.append(NAME_PREF).append(realScopeMiddleName).append(NAME_SUFFER).append(".class");
-
+            if (haveModule && haveFragments) builder.append(", ");
+            if (haveFragments) {
+                realFragmentMiddleNames.forEach(middleName -> {
+                    builder.append(PACKAGE_NAME).append(".")
+                            .append(NAME_PREF).append(middleName).append(NAME_SUFFER).append(".class, ");
+                });
+                if (builder.length() > 2) builder.deleteCharAt(builder.length() - 2);
+            }
             builder.append("}");
         }
 
