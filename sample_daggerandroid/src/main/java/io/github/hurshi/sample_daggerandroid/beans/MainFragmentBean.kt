@@ -1,6 +1,6 @@
 package io.github.hurshi.sample_daggerandroid.beans
 
-data class MainFragmentBean(val desc: String) {
+class MainFragmentBean(private var desc: String?) {
     override fun toString(): String {
         return "MainFragmentBean ${hashCode()} $desc"
     }

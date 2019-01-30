@@ -1,4 +1,4 @@
-package io.github.hurshi.sample_daggerandroid;
+package io.github.hurshi.sample_daggerandroid.ui.activitys;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.util.Log;
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
+import io.github.hurshi.sample_daggerandroid.R;
+import io.github.hurshi.sample_daggerandroid.ui.fragments.SecFragment;
 import io.github.hurshi.sample_daggerandroid.beans.AppBean;
 import io.github.hurshi.sample_daggerandroid.beans.SecActivityBean;
 import io.github.hurshi.sample_daggerandroid.modules.SecActivityModule;
@@ -27,8 +29,8 @@ public class SecActivity extends DaggerAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec);
-        Log.e(">>>", "log from SecActivity  " + appBean.toString());
-        Log.e(">>>", "log from SecActivity  " + secActivityBean.toString());
+        Log.e(">>>", "log from SecActivity 👉 " + appBean.toString());
+        Log.e(">>>", "log from SecActivity 👉 " + secActivityBean.toString());
 
         loadFragment();
     }

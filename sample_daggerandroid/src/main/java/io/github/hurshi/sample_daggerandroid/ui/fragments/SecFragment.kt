@@ -1,4 +1,4 @@
-package io.github.hurshi.sample_daggerandroid
+package io.github.hurshi.sample_daggerandroid.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
+import io.github.hurshi.sample_daggerandroid.R
 import io.github.hurshi.sample_daggerandroid.beans.*
-import io.github.hurshi.sample_daggerandroid.modules.MainFragmentModule
 import io.github.hurshi.sample_daggerandroid.modules.SecFragmentModule
 import io.github.hurshi.sample_daggerandroid.scopes.FragmentScope
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent
@@ -32,8 +32,8 @@ class SecFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e(">>>", "log from SecFragment  $appBean")
-        Log.e(">>>", "log from SecFragment  $secActivityBean")
-        Log.e(">>>", "log from SecFragment  $secFragmentBean")
+        Log.e(">>>", "log from SecFragment 👉 $appBean")
+        Log.e(">>>", "log from SecFragment 👉 $secActivityBean")
+        Log.e(">>>", "log from SecFragment 👉 $secFragmentBean")
     }
 }
