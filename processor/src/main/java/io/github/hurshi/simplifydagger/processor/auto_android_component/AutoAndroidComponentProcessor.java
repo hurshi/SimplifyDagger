@@ -32,6 +32,10 @@ public final class AutoAndroidComponentProcessor {
                         wrapper.setScopeValue(value);
                         break;
                     }
+                    case "subScope": {
+                        wrapper.setSubScopeValue(value);
+                        break;
+                    }
                 }
             }
             if (element instanceof TypeElement) {

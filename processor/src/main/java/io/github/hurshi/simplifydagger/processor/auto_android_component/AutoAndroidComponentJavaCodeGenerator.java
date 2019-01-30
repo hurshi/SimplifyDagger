@@ -4,8 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import javax.annotation.processing.Filer;
 
@@ -15,6 +13,9 @@ import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 
 class AutoAndroidComponentJavaCodeGenerator {
+    private static final String NAME_PREF = "AutoAndroid";
+    private static final String NAME_SUFFER = "ComponentInjector";
+
     static void autoComponentGenerator(Filer filer, List<AutoAndroidComponentWrapper> wrappers) {
         Map<String, List<AutoAndroidComponentWrapper>> map = new LinkedHashMap<>();
         for (AutoAndroidComponentWrapper w : wrappers) {
@@ -39,7 +40,7 @@ class AutoAndroidComponentJavaCodeGenerator {
         if (null == wrappers || wrappers.size() <= 0) {
             return;
         }
-        String className = "AutoAndroid" + scope + "ComponentInjector";
+        String className = NAME_PREF + scope + NAME_SUFFER;
         String packageName = "io.github.hurshi.simplifydagger";
         StringBuilder builder = new StringBuilder()
                 .append(appendPackage(packageName))
@@ -89,8 +90,25 @@ class AutoAndroidComponentJavaCodeGenerator {
         StringBuilder builder = new StringBuilder(Constant.TAB).append("@dagger.android.ContributesAndroidInjector(");
 
         //add modules if exist
-        if (null != wrapper.getModulesValue() && wrapper.getModulesValue().toString().length() > 0) {
-            builder.append("modules = {").append(wrapper.getModulesValue().toString()).append("}");
+        boolean haveModule = null != wrapper.getModulesValue() && wrapper.getModulesValue().toString().length() > 0;
+        boolean haveSubScope = null != wrapper.getSubScopeValue() && wrapper.getSubScopeValue().toString().length() > 0 && wrapper.getScopeValue() != void.class;
+        String realScopeMiddleName = "";
+        if (haveSubScope) {
+            String[] temp = wrapper.getSubScopeValue().toString().split("[.]");
+            if (temp.length >= 1) {
+                realScopeMiddleName = temp[temp.length - 1];
+            }
+        }
+        haveSubScope = realScopeMiddleName.length() > 0;
+
+        if (haveModule || haveSubScope) {
+            builder.append("modules = {");
+            if (haveModule) builder.append(wrapper.getModulesValue().toString());
+            if (haveModule && haveSubScope) builder.append(", ");
+            if (haveSubScope)
+                builder.append(NAME_PREF).append(realScopeMiddleName).append(NAME_SUFFER).append(".class");
+
+            builder.append("}");
         }
 
         builder.append(")\n");

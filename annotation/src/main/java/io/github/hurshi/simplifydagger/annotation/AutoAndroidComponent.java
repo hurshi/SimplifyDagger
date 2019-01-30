@@ -11,4 +11,6 @@ public @interface AutoAndroidComponent {
     Class<?>[] modules() default {};
 
     Class<?> scope() default void.class;
+
+    Class<?> subScope() default void.class;
 }
