@@ -14,6 +14,7 @@ SimplifyDagger 特性：简化 Dagger 使用，不再写模版代码
   2. 注入。 `DaggerAutoTargetClassComponent.create().inject(this);`
 
   ```java
+  // --------------------- MainActivity ------------------------------
   @AutoComponent(module = {MainModule.class}, scope = ActivityScope.class)//👈关注这行
   public class MainActivity extends AppCompatActivity {
       @Inject
