@@ -24,6 +24,14 @@ public class Logger {
         messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING, stringBuilder.toString());
     }
 
+    public static void printStackTrace(Exception e) {
+        StringBuilder stringBuilder = new StringBuilder(e.getMessage()).append("\n").append(e.getCause().toString()).append("\n");
+        for (int i = 0; i < e.getStackTrace().length; i++) {
+            stringBuilder.append(e.getStackTrace()[i].toString()).append("\n");
+        }
+        Logger.log("!!!!!!!!!!!! error !!!!!!!!!!!!\n" + stringBuilder.toString());
+    }
+
     private static void checkMessageNotNull() {
         if (null == messager) {
             throw new IllegalStateException("messager 没有初始化");
