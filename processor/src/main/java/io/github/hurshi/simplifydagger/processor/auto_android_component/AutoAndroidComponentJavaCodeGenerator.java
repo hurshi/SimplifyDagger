@@ -19,46 +19,52 @@ class AutoAndroidComponentJavaCodeGenerator {
 
     static void autoComponentGenerator(Filer filer, List<AutoAndroidComponentWrapper> wrappers) {
         List<String> fragments = new LinkedList<>();
+
         wrappers.forEach(wrapper -> {
             if (null != wrapper.getFragmentsValue() && wrapper.getFragmentsValue().toString().length() > 0) {
                 fragments.addAll(Arrays.asList(wrapper.getFragmentsValue().toString().split("[,]")));
             }
         });
 
-        Map<String, List<AutoAndroidComponentWrapper>> map = new LinkedHashMap<>();
+        Map<String, AutoAndroidComponentJavaFileWrapper> map = new LinkedHashMap<>();
         for (AutoAndroidComponentWrapper w : wrappers) {
             String middleName = "";
-            if (null != w.getScopeValue() && w.getScopeValue().toString().length() > 0
+            String packaggName = "";
+            if (fragments.contains(w.getTypeElement().getQualifiedName().toString() + ".class")) {
+                middleName = w.getTypeElement().getSimpleName().toString();
+                packaggName = w.getTypeElement().getQualifiedName().toString()
+                        .replace("." + w.getTypeElement().getSimpleName().toString(), "");
+            } else if (null != w.getScopeValue() && w.getScopeValue().toString().length() > 0
                     && w.getScopeValue() != void.class) {
                 String[] scopeSplit = w.getScopeValue().toString().split("[.]");
                 middleName = scopeSplit[scopeSplit.length - 1];
+                packaggName = PACKAGE_NAME;
             }
-            if (fragments.contains(w.getTypeElement().getQualifiedName().toString() + ".class")) {
-                middleName = w.getTypeElement().getSimpleName().toString();
+
+            String uniqueKey = packaggName + middleName;
+            AutoAndroidComponentJavaFileWrapper javaFileWrapper = map.get(uniqueKey);
+            if (null == javaFileWrapper) {
+                javaFileWrapper = new AutoAndroidComponentJavaFileWrapper(packaggName, middleName);
             }
-            List<AutoAndroidComponentWrapper> l = map.get(middleName);
-            if (null == l) {
-                l = new LinkedList<>();
-            }
-            l.add(w);
-            map.put(middleName, l);
+            javaFileWrapper.addWrapper(w);
+            map.put(uniqueKey, javaFileWrapper);
         }
-        map.forEach((scope, wps) -> generateSingleScope(filer, scope, wps));
+        map.forEach((t, javaFileWrapper) -> generateSingleScope(filer, javaFileWrapper));
     }
 
-    private static void generateSingleScope(Filer filer, String scope, List<AutoAndroidComponentWrapper> wrappers) {
-        if (null == wrappers || wrappers.size() <= 0) {
+    private static void generateSingleScope(Filer filer, AutoAndroidComponentJavaFileWrapper javaFileWrapper) {
+        if (null == javaFileWrapper || javaFileWrapper.getWrappers().size() <= 0) {
             return;
         }
-        String className = NAME_PREF + scope + NAME_SUFFER;
+        String realClassName = NAME_PREF + javaFileWrapper.getClassMiddleName() + NAME_SUFFER;
         StringBuilder builder = new StringBuilder()
-                .append(appendPackage(PACKAGE_NAME))
+                .append(appendPackage(javaFileWrapper.getPackageName()))
                 .append("@dagger.Module\n")
-                .append("public abstract class ").append(className).append(" {\n\n")
-                .append(appendBody(wrappers))
+                .append("public abstract class ").append(realClassName).append(" {\n\n")
+                .append(appendBody(javaFileWrapper.getWrappers()))
                 .append("}");
 
-        Utils.writeJavaFile(filer, PACKAGE_NAME + "." + className, builder);
+        Utils.writeJavaFile(filer, javaFileWrapper.getPackageName() + "." + realClassName, builder);
     }
 
 
@@ -105,10 +111,10 @@ class AutoAndroidComponentJavaCodeGenerator {
         if (haveFragments) {
             String[] fgFullNames = wrapper.getFragmentsValue().toString().split("[,]");
             for (int i = 0; i < fgFullNames.length; i++) {
+                String simpleClassName = "";
                 String[] fgPath = fgFullNames[i].split("[.]");
-                if (fgPath.length >= 2) {
-                    realFragmentMiddleNames.add(fgPath[fgPath.length - 2]);
-                }
+                if (fgPath.length >= 2) simpleClassName = fgPath[fgPath.length - 2];
+                realFragmentMiddleNames.add(fgFullNames[i].replace(simpleClassName, NAME_PREF + simpleClassName + NAME_SUFFER));
             }
         }
 
@@ -119,10 +125,7 @@ class AutoAndroidComponentJavaCodeGenerator {
             if (haveModule) builder.append(wrapper.getModulesValue().toString());
             if (haveModule && haveFragments) builder.append(", ");
             if (haveFragments) {
-                realFragmentMiddleNames.forEach(middleName -> {
-                    builder.append(PACKAGE_NAME).append(".")
-                            .append(NAME_PREF).append(middleName).append(NAME_SUFFER).append(".class, ");
-                });
+                realFragmentMiddleNames.forEach(className -> builder.append(className).append(", "));
                 if (builder.length() > 2) builder.deleteCharAt(builder.length() - 2);
             }
             builder.append("}");
