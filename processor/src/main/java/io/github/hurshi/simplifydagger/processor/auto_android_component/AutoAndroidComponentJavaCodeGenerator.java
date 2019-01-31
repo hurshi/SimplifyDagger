@@ -107,26 +107,30 @@ class AutoAndroidComponentJavaCodeGenerator {
         //add modules if exist
         boolean haveModule = null != wrapper.getModulesValue() && wrapper.getModulesValue().toString().length() > 0;
         boolean haveFragments = null != wrapper.getFragmentsValue() && wrapper.getFragmentsValue().toString().length() > 0 && wrapper.getScopeValue() != void.class;
-        List<String> realFragmentMiddleNames = new LinkedList<>();
+        List<String> realFragmentNames = new LinkedList<>();
         if (haveFragments) {
             String[] fgFullNames = wrapper.getFragmentsValue().toString().split("[,]");
             for (int i = 0; i < fgFullNames.length; i++) {
                 String simpleClassName = "";
                 String[] fgPath = fgFullNames[i].split("[.]");
                 if (fgPath.length >= 2) simpleClassName = fgPath[fgPath.length - 2];
-                realFragmentMiddleNames.add(fgFullNames[i].replace(simpleClassName, NAME_PREF + simpleClassName + NAME_SUFFER));
+                realFragmentNames.add(fgFullNames[i].replace(simpleClassName, NAME_PREF + simpleClassName + NAME_SUFFER));
             }
         }
 
-        haveFragments = realFragmentMiddleNames.size() > 0;
+        haveFragments = realFragmentNames.size() > 0;
 
         if (haveModule || haveFragments) {
             builder.append("modules = {");
             if (haveModule) builder.append(wrapper.getModulesValue().toString());
             if (haveModule && haveFragments) builder.append(", ");
             if (haveFragments) {
-                realFragmentMiddleNames.forEach(className -> builder.append(className).append(", "));
-                if (builder.length() > 2) builder.deleteCharAt(builder.length() - 2);
+                realFragmentNames.forEach(className -> builder
+                        .append("\n").append(Constant.TAB).append(Constant.TAB).append(Constant.TAB)//换行
+                        .append(className).append(", "));
+                if (builder.length() > 2) {//删掉最后的 ", "
+                    builder.setLength(builder.length() - 2);
+                }
             }
             builder.append("}");
         }
