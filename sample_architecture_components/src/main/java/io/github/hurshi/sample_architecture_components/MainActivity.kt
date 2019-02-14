@@ -6,9 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.hurshi.sample_architecture_components.entity.DaoSessionSimulate
+import io.github.hurshi.sample_architecture_components.scopes.ActivityScope
 import io.github.hurshi.sample_architecture_components.vm.MainActivityViewModel
+import io.github.hurshi.sample_architecture_components.vm_factory.VMFactory
+import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent
+import io.github.hurshi.simplifydagger.annotation.AutoViewModelComponent
 import javax.inject.Inject
 
+@AutoViewModelComponent(factory = VMFactory::class, viewModel = MainActivityViewModel::class)
+@AutoAndroidComponent(scope = ActivityScope::class)
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject

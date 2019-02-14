@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.processing.Filer;
 
 import io.github.hurshi.simplifydagger.processor.utils.Constant;
+import io.github.hurshi.simplifydagger.processor.utils.Logger;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 
@@ -30,7 +31,7 @@ class AutoAndroidComponentJavaCodeGenerator {
         for (AutoAndroidComponentWrapper w : wrappers) {
             String middleName = "";
             String packaggName = "";
-            if (fragments.contains(w.getTypeElement().getQualifiedName().toString() + ".class")) {
+            if (fragments.contains(w.getTypeElement().getQualifiedName().toString() + ".class") || (null != w.getTryMergeValue() && w.getTryMergeValue().equals(false))) {
                 middleName = w.getTypeElement().getSimpleName().toString();
                 packaggName = w.getTypeElement().getQualifiedName().toString()
                         .replace("." + w.getTypeElement().getSimpleName().toString(), "");

@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_android_component;
+package io.github.hurshi.simplifydagger.processor.auto_viewmodel_component;
 
 import java.util.List;
 import java.util.Map;
@@ -9,31 +9,31 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
+import io.github.hurshi.simplifydagger.annotation.AutoViewModelComponent;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
-public final class AutoAndroidComponentProcessor {
+public final class AutoViewModelComponentProcessor {
     public static void process(RoundEnvironment env, Filer filer) {
-        AutoAndroidComponentJavaCodeGenerator.autoComponentGenerator(filer, getAutoComponentWrappers(env));
+        AutoViewModelComponentJavaCodeGenerator.autoComponentGenerator(filer, getAutoComponentWrappers(env));
     }
 
-    private static List<AutoAndroidComponentWrapper> getAutoComponentWrappers(RoundEnvironment env) {
-        return Utils.getWrappers(env, AutoAndroidComponent.class, (mirror, element) -> {
-            AutoAndroidComponentWrapper wrapper = new AutoAndroidComponentWrapper();
+    private static List<AutoViewModelComponentWrapper> getAutoComponentWrappers(RoundEnvironment env) {
+        return Utils.getWrappers(env, AutoViewModelComponent.class, (mirror, element) -> {
+            AutoViewModelComponentWrapper wrapper = new AutoViewModelComponentWrapper();
             for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirror.getElementValues().entrySet()) {
                 String key = entry.getKey().getSimpleName().toString();
                 Object value = entry.getValue().getValue();
                 switch (key) {
-                    case "modules": {
-                        wrapper.setModulesValue(value);
+                    case "viewModel": {
+                        wrapper.setViewModelValue(value);
                         break;
                     }
                     case "scope": {
                         wrapper.setScopeValue(value);
                         break;
                     }
-                    case "fragments": {
-                        wrapper.setFragmentsValue(value);
+                    case "factory": {
+                        wrapper.setFactoryValue(value);
                         break;
                     }
                     case "tryMerge": {

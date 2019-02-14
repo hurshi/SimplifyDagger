@@ -9,12 +9,12 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface AutoAndroidComponent {
-    Class<?>[] modules() default {};
+public @interface AutoViewModelComponent {
+    Class<?> viewModel() default void.class;
 
     Class<?> scope() default void.class;
 
-    Class<?>[] fragments() default {};
+    Class<?> factory() default void.class;
 
     boolean tryMerge() default true;
 }

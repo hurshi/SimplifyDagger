@@ -1,12 +1,12 @@
-package io.github.hurshi.simplifydagger.processor.auto_android_component;
+package io.github.hurshi.simplifydagger.processor.auto_viewmodel_component;
 
 import javax.lang.model.element.TypeElement;
 
-public class AutoAndroidComponentWrapper {
+public class AutoViewModelComponentWrapper {
     private TypeElement typeElement;
-    private Object modulesValue;
+    private Object viewModelValue;
     private Object scopeValue;
-    private Object fragmentsValue;
+    private Object factoryValue;
     private Object tryMergeValue;
 
     public TypeElement getTypeElement() {
@@ -17,12 +17,12 @@ public class AutoAndroidComponentWrapper {
         this.typeElement = typeElement;
     }
 
-    public Object getModulesValue() {
-        return modulesValue;
+    public Object getViewModelValue() {
+        return viewModelValue;
     }
 
-    public void setModulesValue(Object modulesValue) {
-        this.modulesValue = modulesValue;
+    public void setViewModelValue(Object viewModelValue) {
+        this.viewModelValue = viewModelValue;
     }
 
     public Object getScopeValue() {
@@ -33,12 +33,12 @@ public class AutoAndroidComponentWrapper {
         this.scopeValue = scopeValue;
     }
 
-    public Object getFragmentsValue() {
-        return fragmentsValue;
+    public Object getFactoryValue() {
+        return factoryValue;
     }
 
-    public void setFragmentsValue(Object fragmentsValue) {
-        this.fragmentsValue = fragmentsValue;
+    public void setFactoryValue(Object factoryValue) {
+        this.factoryValue = factoryValue;
     }
 
     public Object getTryMergeValue() {
