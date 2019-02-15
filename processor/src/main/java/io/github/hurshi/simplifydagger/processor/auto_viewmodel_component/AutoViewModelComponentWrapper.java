@@ -5,7 +5,7 @@ import javax.lang.model.element.TypeElement;
 public class AutoViewModelComponentWrapper {
     private TypeElement typeElement;
     private Object viewModelValue;
-    private Object scopeValue;
+    private Object factoryScopeValue;
     private Object factoryValue;
     private Object tryMergeValue;
 
@@ -25,12 +25,12 @@ public class AutoViewModelComponentWrapper {
         this.viewModelValue = viewModelValue;
     }
 
-    public Object getScopeValue() {
-        return scopeValue;
+    public Object getFactoryScopeValue() {
+        return factoryScopeValue;
     }
 
-    public void setScopeValue(Object scopeValue) {
-        this.scopeValue = scopeValue;
+    public void setFactoryScopeValue(Object factoryScopeValue) {
+        this.factoryScopeValue = factoryScopeValue;
     }
 
     public Object getFactoryValue() {

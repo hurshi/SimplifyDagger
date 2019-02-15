@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface AutoViewModelComponent {
+public @interface AutoViewModelFactoryComponent {
     Class<?> viewModel() default void.class;
 
-    Class<?> scope() default void.class;
+    Class<?> factoryScope() default void.class;
 
     Class<?> factory() default void.class;
 

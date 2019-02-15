@@ -31,7 +31,7 @@ public final class AutoComponentProcessor {
                         wrapper.setModulesValue(value);
                         break;
                     }
-                    case "scope": {
+                    case "factoryScope": {
                         wrapper.setScopeValue(value);
                         break;
                     }

@@ -26,9 +26,9 @@ class AutoViewModelComponentJavaCodeGenerator {
                 middleName = w.getTypeElement().getSimpleName().toString();
                 packaggName = w.getTypeElement().getQualifiedName().toString()
                         .replace("." + w.getTypeElement().getSimpleName().toString(), "");
-            } else if (null != w.getScopeValue() && w.getScopeValue().toString().length() > 0
-                    && w.getScopeValue() != void.class) {
-                String[] scopeSplit = w.getScopeValue().toString().split("[.]");
+            } else if (null != w.getFactoryScopeValue() && w.getFactoryScopeValue().toString().length() > 0
+                    && w.getFactoryScopeValue() != void.class) {
+                String[] scopeSplit = w.getFactoryScopeValue().toString().split("[.]");
                 middleName = scopeSplit[scopeSplit.length - 1];
             }
 
@@ -75,8 +75,8 @@ class AutoViewModelComponentJavaCodeGenerator {
             final String factory = wrapper.getFactoryValue().toString();
             final String oldScope = factorySet.get(factory);
             String scope = null;
-            if (null != wrapper.getScopeValue()) {
-                scope = wrapper.getScopeValue().toString();
+            if (null != wrapper.getFactoryScopeValue()) {
+                scope = wrapper.getFactoryScopeValue().toString();
             }
             if (null != oldScope && !oldScope.equals(scope)) {
                 //some wrong
@@ -92,7 +92,7 @@ class AutoViewModelComponentJavaCodeGenerator {
 
     private static StringBuilder appendSingleWrapper(AutoViewModelComponentWrapper wrapper) {
         return new StringBuilder()
-                .append(appendScope(wrapper.getScopeValue()))
+                .append(appendScope(wrapper.getFactoryScopeValue()))
                 .append(Constant.TAB).append("@dagger.Binds\n")
                 .append(Constant.TAB).append("@dagger.multibindings.IntoMap\n")
                 .append(appendViewModelKey(wrapper))
@@ -102,7 +102,7 @@ class AutoViewModelComponentJavaCodeGenerator {
 
     private static StringBuilder appendScope(Object scopeValue) {
         StringBuilder builder = new StringBuilder();
-        //add scope if exist
+        //add factoryScope if exist
         if (null != scopeValue && scopeValue.toString().length() > 0
                 && scopeValue != void.class) {
             builder.append(Constant.TAB).append("@").append(scopeValue.toString()).append("\n");

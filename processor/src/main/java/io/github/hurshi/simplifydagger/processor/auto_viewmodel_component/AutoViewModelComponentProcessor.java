@@ -9,7 +9,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import io.github.hurshi.simplifydagger.annotation.AutoViewModelComponent;
+import io.github.hurshi.simplifydagger.annotation.AutoViewModelFactoryComponent;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 public final class AutoViewModelComponentProcessor {
@@ -18,7 +18,7 @@ public final class AutoViewModelComponentProcessor {
     }
 
     private static List<AutoViewModelComponentWrapper> getAutoComponentWrappers(RoundEnvironment env) {
-        return Utils.getWrappers(env, AutoViewModelComponent.class, (mirror, element) -> {
+        return Utils.getWrappers(env, AutoViewModelFactoryComponent.class, (mirror, element) -> {
             AutoViewModelComponentWrapper wrapper = new AutoViewModelComponentWrapper();
             for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirror.getElementValues().entrySet()) {
                 String key = entry.getKey().getSimpleName().toString();
@@ -28,8 +28,8 @@ public final class AutoViewModelComponentProcessor {
                         wrapper.setViewModelValue(value);
                         break;
                     }
-                    case "scope": {
-                        wrapper.setScopeValue(value);
+                    case "factoryScope": {
+                        wrapper.setFactoryScopeValue(value);
                         break;
                     }
                     case "factory": {

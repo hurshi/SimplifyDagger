@@ -28,7 +28,7 @@ public final class AutoAndroidComponentProcessor {
                         wrapper.setModulesValue(value);
                         break;
                     }
-                    case "scope": {
+                    case "factoryScope": {
                         wrapper.setScopeValue(value);
                         break;
                     }

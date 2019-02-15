@@ -94,7 +94,7 @@ class AutoAndroidComponentJavaCodeGenerator {
 
     private static StringBuilder appendScope(AutoAndroidComponentWrapper wrapper) {
         StringBuilder builder = new StringBuilder();
-        //add scope if exist
+        //add factoryScope if exist
         if (null != wrapper.getScopeValue() && wrapper.getScopeValue().toString().length() > 0
                 && wrapper.getScopeValue() != void.class) {
             builder.append(Constant.TAB).append("@").append(wrapper.getScopeValue().toString()).append("\n");
