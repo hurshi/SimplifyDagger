@@ -6,9 +6,12 @@ import dagger.android.support.AndroidSupportInjectionModule;
 import io.github.hurshi.sample_daggerandroid.App;
 import io.github.hurshi.sample_daggerandroid.modules.AppModule;
 import io.github.hurshi.sample_daggerandroid.scopes.AppScope;
-import io.github.hurshi.simplifydagger.AutoAndroidActivityScopeComponentInjector;
+import io.github.hurshi.sample_daggerandroid.ui.AutoAndroidActivityScopeComponentInjector;
 
 @AppScope
-@Component(modules = {AppModule.class, AndroidSupportInjectionModule.class, AutoAndroidActivityScopeComponentInjector.class})
+@Component(modules = {AppModule.class
+        , AndroidSupportInjectionModule.class
+        , AutoAndroidActivityScopeComponentInjector.class
+})
 public interface AppComponent extends AndroidInjector<App> {
 }

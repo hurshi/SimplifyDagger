@@ -31,7 +31,6 @@ public final class SimplifyDaggerProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment env) {
-        Logger.log("process SimplifyDagger");
         AutoComponentProcessor.process(env, filer);
         AutoAndroidComponentProcessor.process(env, filer);
         AutoViewModelComponentProcessor.process(env, filer);

@@ -14,14 +14,14 @@ import io.github.hurshi.simplifydagger.processor.utils.Utils;
 class AutoViewModelComponentJavaCodeGenerator {
     private static final String NAME_PREF = "AutoViewModel";
     private static final String NAME_SUFFER = "ComponentInjector";
-    private static final String PACKAGE_NAME = "io.github.hurshi.simplifydagger";
 
     static void autoComponentGenerator(Filer filer, List<AutoViewModelComponentWrapper> wrappers) {
+        String packageName = getPackageName(wrappers);
 
         Map<String, AutoViewModelComponentJavaFileWrapper> map = new LinkedHashMap<>();
         for (AutoViewModelComponentWrapper w : wrappers) {
             String middleName = "";
-            String packaggName = PACKAGE_NAME;
+            String packaggName = packageName;
             if (null != w.getTryMergeValue() && w.getTryMergeValue().equals(false)) {
                 middleName = w.getTypeElement().getSimpleName().toString();
                 packaggName = w.getTypeElement().getQualifiedName().toString()
@@ -142,5 +142,17 @@ class AutoViewModelComponentJavaCodeGenerator {
     private static String getSimpleName(String allName) {
         final String[] factorySplits = allName.split("[.]");
         return factorySplits[factorySplits.length - 1];
+    }
+
+    private static String getPackageName(List<AutoViewModelComponentWrapper> wrappers) {
+        String packageName = "";
+        for (int i = 0; i < wrappers.size(); i++) {
+            packageName = Utils.getSameHead(packageName, wrappers.get(i).getTypeElement().getQualifiedName().toString()
+                    .replace("." + wrappers.get(i).getTypeElement().getSimpleName().toString(), ""));
+        }
+        while (packageName.endsWith(".")) {
+            packageName = packageName.substring(0, packageName.length() - 1);
+        }
+        return packageName;
     }
 }

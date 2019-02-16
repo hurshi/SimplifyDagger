@@ -52,4 +52,19 @@ public class Utils {
         return text.replaceFirst("(?s)(.*)" + regex, "$1" + replacement);
     }
 
+    public static String getSameHead(String str1, String str2) {
+        if (str1.length() <= 0) return str2;
+        if (str2.length() <= 0) return str1;
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < Math.min(str1.length(), str2.length()); i++) {
+            if (str1.charAt(i) == str2.charAt(i)) {
+                stringBuilder.append(str1.charAt(i));
+            } else {
+                break;
+            }
+        }
+        return stringBuilder.toString();
+    }
+
 }

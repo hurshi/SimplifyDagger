@@ -16,16 +16,23 @@ import io.github.hurshi.simplifydagger.processor.utils.Utils;
 class AutoAndroidComponentJavaCodeGenerator {
     private static final String NAME_PREF = "AutoAndroid";
     private static final String NAME_SUFFER = "ComponentInjector";
-    private static final String PACKAGE_NAME = "io.github.hurshi.simplifydagger";
 
     static void autoComponentGenerator(Filer filer, List<AutoAndroidComponentWrapper> wrappers) {
         List<String> fragments = new LinkedList<>();
+        String packageName = "";
 
-        wrappers.forEach(wrapper -> {
+        for (int i = 0; i < wrappers.size(); i++) {
+            AutoAndroidComponentWrapper wrapper = wrappers.get(i);
             if (null != wrapper.getFragmentsValue() && wrapper.getFragmentsValue().toString().length() > 0) {
                 fragments.addAll(Arrays.asList(wrapper.getFragmentsValue().toString().split("[,]")));
             }
-        });
+            packageName = Utils.getSameHead(packageName, wrapper.getTypeElement().getQualifiedName().toString()
+                    .replace("." + wrapper.getTypeElement().getSimpleName().toString(), ""));
+        }
+
+        while (packageName.endsWith(".")) {
+            packageName = packageName.substring(0, packageName.length() - 1);
+        }
 
         Map<String, AutoAndroidComponentJavaFileWrapper> map = new LinkedHashMap<>();
         for (AutoAndroidComponentWrapper w : wrappers) {
@@ -39,7 +46,7 @@ class AutoAndroidComponentJavaCodeGenerator {
                     && w.getScopeValue() != void.class) {
                 String[] scopeSplit = w.getScopeValue().toString().split("[.]");
                 middleName = scopeSplit[scopeSplit.length - 1];
-                packaggName = PACKAGE_NAME;
+                packaggName = packageName;
             }
 
             String uniqueKey = packaggName + middleName;
