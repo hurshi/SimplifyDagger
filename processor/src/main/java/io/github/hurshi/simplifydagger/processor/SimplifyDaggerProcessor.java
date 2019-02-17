@@ -13,9 +13,9 @@ import javax.lang.model.element.TypeElement;
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
 import io.github.hurshi.simplifydagger.annotation.AutoViewModelFactoryComponent;
-import io.github.hurshi.simplifydagger.processor.auto_android_component.AutoAndroidComponentProcessor;
-import io.github.hurshi.simplifydagger.processor.auto_component.AutoComponentProcessor;
-import io.github.hurshi.simplifydagger.processor.auto_viewmodel_component.AutoViewModelComponentProcessor;
+import io.github.hurshi.simplifydagger.processor.autoandroidcomponent.AutoAndroidComponentProcessor;
+import io.github.hurshi.simplifydagger.processor.autocomponent.AutoComponentProcessor;
+import io.github.hurshi.simplifydagger.processor.autoviewmodelfactorycomponent.AutoViewModelComponentProcessor;
 import io.github.hurshi.simplifydagger.processor.utils.Logger;
 
 //@AutoService(Processor.class)

@@ -11,8 +11,8 @@ import io.github.hurshi.sample_architecture_components.scopes.AppScope
 @Component(
         modules = [AndroidSupportInjectionModule::class
             , AppModule::class
-            , io.github.hurshi.sample_architecture_components.AutoAndroidActivityScopeComponentInjector::class
-            , io.github.hurshi.sample_architecture_components.AutoViewModelAppScopeComponentInjector::class
+            , io.github.hurshi.sample_architecture_components.simplifydagger.AutoAndroidActivityScopeComponentInjector::class
+            , io.github.hurshi.sample_architecture_components.simplifydagger.AutoViewModelAppScopeComponentInjector::class
         ]
 )
 abstract interface AppComponent : AndroidInjector<App> {

@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_component;
+package io.github.hurshi.simplifydagger.processor.autocomponent;
 
 import java.util.List;
 import java.util.Map;

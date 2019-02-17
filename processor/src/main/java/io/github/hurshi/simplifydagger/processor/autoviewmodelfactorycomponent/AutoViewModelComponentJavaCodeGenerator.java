@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_viewmodel_component;
+package io.github.hurshi.simplifydagger.processor.autoviewmodelfactorycomponent;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -153,6 +153,7 @@ class AutoViewModelComponentJavaCodeGenerator {
         while (packageName.endsWith(".")) {
             packageName = packageName.substring(0, packageName.length() - 1);
         }
+        packageName += Constant.PACKAGE_NAME_SUFFIX;
         return packageName;
     }
 }

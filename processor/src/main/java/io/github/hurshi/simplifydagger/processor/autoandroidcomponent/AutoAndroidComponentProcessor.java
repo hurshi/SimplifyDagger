@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_android_component;
+package io.github.hurshi.simplifydagger.processor.autoandroidcomponent;
 
 import java.util.List;
 import java.util.Map;

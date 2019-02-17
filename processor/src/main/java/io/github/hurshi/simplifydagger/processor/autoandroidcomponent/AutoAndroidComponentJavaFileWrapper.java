@@ -1,14 +1,14 @@
-package io.github.hurshi.simplifydagger.processor.auto_viewmodel_component;
+package io.github.hurshi.simplifydagger.processor.autoandroidcomponent;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class AutoViewModelComponentJavaFileWrapper {
+public class AutoAndroidComponentJavaFileWrapper {
     private String packageName;
     private String classMiddleName;
-    private List<AutoViewModelComponentWrapper> wrappers = new LinkedList<>();
+    private List<AutoAndroidComponentWrapper> wrappers = new LinkedList<>();
 
-    public AutoViewModelComponentJavaFileWrapper(String packageName, String classMiddleName) {
+    public AutoAndroidComponentJavaFileWrapper(String packageName, String classMiddleName) {
         this.packageName = packageName;
         this.classMiddleName = classMiddleName;
     }
@@ -21,11 +21,11 @@ public class AutoViewModelComponentJavaFileWrapper {
         this.packageName = packageName;
     }
 
-    public List<AutoViewModelComponentWrapper> getWrappers() {
+    public List<AutoAndroidComponentWrapper> getWrappers() {
         return wrappers;
     }
 
-    public void setWrappers(List<AutoViewModelComponentWrapper> wrappers) {
+    public void setWrappers(List<AutoAndroidComponentWrapper> wrappers) {
         this.wrappers = wrappers;
     }
 
@@ -37,7 +37,7 @@ public class AutoViewModelComponentJavaFileWrapper {
         this.classMiddleName = classMiddleName;
     }
 
-    public void addWrapper(AutoViewModelComponentWrapper wrapper) {
+    public void addWrapper(AutoAndroidComponentWrapper wrapper) {
         if (!wrappers.contains(wrapper)) {
             wrappers.add(wrapper);
         }

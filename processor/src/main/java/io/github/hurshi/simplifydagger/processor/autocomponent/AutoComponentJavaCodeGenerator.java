@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_component;
+package io.github.hurshi.simplifydagger.processor.autocomponent;
 
 import javax.annotation.processing.Filer;
 

@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_viewmodel_component;
+package io.github.hurshi.simplifydagger.processor.autoviewmodelfactorycomponent;
 
 import java.util.List;
 import java.util.Map;

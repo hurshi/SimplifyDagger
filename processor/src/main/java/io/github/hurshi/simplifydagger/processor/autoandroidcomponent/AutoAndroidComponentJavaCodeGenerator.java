@@ -1,4 +1,4 @@
-package io.github.hurshi.simplifydagger.processor.auto_android_component;
+package io.github.hurshi.simplifydagger.processor.autoandroidcomponent;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.annotation.processing.Filer;
 
 import io.github.hurshi.simplifydagger.processor.utils.Constant;
-import io.github.hurshi.simplifydagger.processor.utils.Logger;
 import io.github.hurshi.simplifydagger.processor.utils.Utils;
 
 
@@ -33,6 +32,7 @@ class AutoAndroidComponentJavaCodeGenerator {
         while (packageName.endsWith(".")) {
             packageName = packageName.substring(0, packageName.length() - 1);
         }
+        packageName += Constant.PACKAGE_NAME_SUFFIX;
 
         Map<String, AutoAndroidComponentJavaFileWrapper> map = new LinkedHashMap<>();
         for (AutoAndroidComponentWrapper w : wrappers) {
