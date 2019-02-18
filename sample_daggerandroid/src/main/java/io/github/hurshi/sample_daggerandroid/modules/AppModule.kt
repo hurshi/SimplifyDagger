@@ -6,7 +6,9 @@ import dagger.Module
 import dagger.Provides
 import io.github.hurshi.sample_daggerandroid.beans.AppBean
 import io.github.hurshi.sample_daggerandroid.scopes.AppScope
+import io.github.hurshi.simplifydagger.annotation.AutoModule
 
+@AutoModule(scope = AppScope::class)
 @Module
 class AppModule(private val appContext: Context) {
 
