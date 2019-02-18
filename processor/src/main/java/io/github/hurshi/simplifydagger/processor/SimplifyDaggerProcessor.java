@@ -12,9 +12,11 @@ import javax.lang.model.element.TypeElement;
 
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
 import io.github.hurshi.simplifydagger.annotation.AutoComponent;
+import io.github.hurshi.simplifydagger.annotation.AutoModule;
 import io.github.hurshi.simplifydagger.annotation.AutoViewModelFactoryComponent;
 import io.github.hurshi.simplifydagger.processor.autoandroidcomponent.AutoAndroidComponentProcessor;
 import io.github.hurshi.simplifydagger.processor.autocomponent.AutoComponentProcessor;
+import io.github.hurshi.simplifydagger.processor.automodule.AutoModuleProcessor;
 import io.github.hurshi.simplifydagger.processor.autoviewmodelfactorycomponent.AutoViewModelComponentProcessor;
 import io.github.hurshi.simplifydagger.processor.utils.Logger;
 
@@ -34,6 +36,7 @@ public final class SimplifyDaggerProcessor extends AbstractProcessor {
         AutoComponentProcessor.process(env, filer);
         AutoAndroidComponentProcessor.process(env, filer);
         AutoViewModelComponentProcessor.process(env, filer);
+        AutoModuleProcessor.process(env, filer);
         return false;
     }
 
@@ -43,6 +46,7 @@ public final class SimplifyDaggerProcessor extends AbstractProcessor {
         types.add(AutoComponent.class.getCanonicalName());
         types.add(AutoAndroidComponent.class.getCanonicalName());
         types.add(AutoViewModelFactoryComponent.class.getCanonicalName());
+        types.add(AutoModule.class.getCanonicalName());
         return types;
     }
 
