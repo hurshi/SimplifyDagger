@@ -67,26 +67,26 @@ class AutoViewModelComponentJavaCodeGenerator {
 
     private static StringBuilder appendBody(List<AutoViewModelComponentWrapper> wrappers) {
         StringBuilder builder = new StringBuilder();
-        Map<String, String> factorySet = new HashMap<>();
+//        Map<String, String> factorySet = new HashMap<>();
         wrappers.forEach(wrapper -> {
             builder.append(appendSingleWrapper(wrapper));
 
 
-            final String factory = wrapper.getFactoryValue().toString();
-            final String oldScope = factorySet.get(factory);
-            String scope = null;
-            if (null != wrapper.getFactoryScopeValue()) {
-                scope = wrapper.getFactoryScopeValue().toString();
-            }
-            if (null != oldScope && !oldScope.equals(scope)) {
-                //some wrong
-            } else {
-                factorySet.put(factory, scope);
-            }
+//            final String factory = wrapper.getFactoryValue().toString();
+//            final String oldScope = factorySet.get(factory);
+//            String scope = null;
+//            if (null != wrapper.getFactoryScopeValue()) {
+//                scope = wrapper.getFactoryScopeValue().toString();
+//            }
+//            if (null != oldScope && !oldScope.equals(scope)) {
+//                //some wrong
+//            } else {
+//                factorySet.put(factory, scope);
+//            }
         });
-        factorySet.forEach((factory, scope) -> {
-            builder.append(appendFactory(factory, scope));
-        });
+//        factorySet.forEach((factory, scope) -> {
+//            builder.append(appendFactory(factory, scope));
+//        });
         return builder;
     }
 

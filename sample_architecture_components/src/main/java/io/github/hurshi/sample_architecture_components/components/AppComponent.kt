@@ -16,5 +16,4 @@ import io.github.hurshi.sample_architecture_components.scopes.AppScope
         ]
 )
 abstract interface AppComponent : AndroidInjector<App> {
-
 }
