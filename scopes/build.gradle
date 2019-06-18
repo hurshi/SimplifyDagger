@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+apply plugin: 'maven'
+
+group = 'io.github.hurshi.scopes'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    compileOnly 'com.google.dagger:dagger:2.23.1'
+}
+

@@ -1,1 +1,1 @@
-include ':sample', ':annotation', ':processor', ':sample_daggerandroid', ':aarreplacement', ':sample_architecture_components'
+include ':sample', ':annotation', ':processor', ':sample_daggerandroid', ':aarreplacement', ':sample_architecture_components', ':scopes'
