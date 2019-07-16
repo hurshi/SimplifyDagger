@@ -2,19 +2,20 @@ package io.github.hurshi.sample_daggerandroid.ui.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
-import io.github.hurshi.sample_daggerandroid.ui.fragments.MainFragment;
 import io.github.hurshi.sample_daggerandroid.R;
 import io.github.hurshi.sample_daggerandroid.beans.AppBean;
 import io.github.hurshi.sample_daggerandroid.beans.MainActivityBean;
 import io.github.hurshi.sample_daggerandroid.modules.MainActivityModule;
 import io.github.hurshi.sample_daggerandroid.scopes.ActivityScope;
+import io.github.hurshi.sample_daggerandroid.ui.fragments.MainFragment;
 import io.github.hurshi.sample_daggerandroid.ui.fragments.MainFragment2;
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent;
 

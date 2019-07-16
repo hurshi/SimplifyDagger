@@ -1,9 +1,9 @@
 package io.github.hurshi.sample_architecture_components
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.hurshi.sample_architecture_components.entity.DaoSessionSimulate
 import io.github.hurshi.sample_architecture_components.scopes.ActivityScope

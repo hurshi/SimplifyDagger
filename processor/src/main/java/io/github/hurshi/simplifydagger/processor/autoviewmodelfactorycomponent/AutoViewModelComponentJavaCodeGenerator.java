@@ -1,6 +1,5 @@
 package io.github.hurshi.simplifydagger.processor.autoviewmodelfactorycomponent;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +123,7 @@ class AutoViewModelComponentJavaCodeGenerator {
 
     private static StringBuilder appendMethod(AutoViewModelComponentWrapper wrapper) {
         return new StringBuilder(Constant.TAB)
-                .append("public abstract android.arch.lifecycle.ViewModel bind")
+                .append("public abstract androidx.lifecycle.ViewModel bind")
                 .append(getSimpleName(wrapper.getViewModelValue().toString()))
                 .append("(").append(wrapper.getViewModelValue().toString()).append(" m")
                 .append(");\n\n");

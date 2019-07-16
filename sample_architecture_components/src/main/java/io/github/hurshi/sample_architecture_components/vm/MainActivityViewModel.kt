@@ -1,6 +1,6 @@
 package io.github.hurshi.sample_architecture_components.vm
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import io.github.hurshi.sample_architecture_components.entity.DaoSessionSimulate
 import javax.inject.Inject
 

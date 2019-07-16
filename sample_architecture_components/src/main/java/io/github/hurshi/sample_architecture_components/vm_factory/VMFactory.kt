@@ -1,7 +1,7 @@
 package io.github.hurshi.sample_architecture_components.vm_factory
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.github.hurshi.sample_architecture_components.scopes.AppScope
 import javax.inject.Inject
 import javax.inject.Provider

@@ -1,6 +1,6 @@
 package io.github.hurshi.simplifydagger.annotation;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

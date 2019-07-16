@@ -1,6 +1,6 @@
 package io.github.hurshi.sample_architecture_components.modules
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

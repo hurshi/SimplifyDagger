@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 import io.github.hurshi.sample_daggerandroid.R
-import io.github.hurshi.sample_daggerandroid.beans.*
+import io.github.hurshi.sample_daggerandroid.beans.AppBean
+import io.github.hurshi.sample_daggerandroid.beans.SecActivityBean
+import io.github.hurshi.sample_daggerandroid.beans.SecFragmentBean
 import io.github.hurshi.sample_daggerandroid.modules.SecFragmentModule
 import io.github.hurshi.sample_daggerandroid.scopes.FragmentScope
 import io.github.hurshi.simplifydagger.annotation.AutoAndroidComponent
